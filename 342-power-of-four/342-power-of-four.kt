@@ -1,11 +1,11 @@
 class Solution {
     fun isPowerOfFour(n: Int): Boolean {
-        if (n == 1) {
-            return true
+       return if (n == 1) {
+            true
         } else if (n == 0 || n % 4 != 0) {
-            return false
+            false
         } else {
-            return isPowerOfFour(n shr 2)
+            isPowerOfFour(n shr 2)
         }
     }
 }
