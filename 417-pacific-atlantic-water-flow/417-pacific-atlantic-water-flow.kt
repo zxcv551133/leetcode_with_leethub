@@ -4,9 +4,9 @@ class Solution {
         val reachableSeed = heights.indices.flatMap { row ->
             heights[0].indices.map { col ->
                 val (pacific, atlantic) = when {
+                    heights.size == 1 || heights[0].size == 1 -> Pair(true, true)
                     row == 0 && col == heights[0].size - 1 -> Pair(true, true)
                     row == heights.size - 1 && col == 0 -> Pair(true, true)
-                    heights.size == 1 || heights[0].size == 1 -> Pair(true, true)
                     row == 0 || col == 0 -> Pair(true, false)
                     row == heights.size - 1 || col == heights[0].size - 1 -> Pair(false, true)
                     else -> Pair(false, false)
@@ -14,7 +14,7 @@ class Solution {
                 Pair(Pair(row, col), Pair(pacific, atlantic))
             }
         }
-        println(reachableSeed)
+
         fun isNotBoundary(row: Int, col: Int): Boolean = when {
             row >= heights.size || row < 0 || col >= heights[0].size || col < 0 -> false
             else -> true
@@ -29,32 +29,16 @@ class Solution {
                         Pair(row + it.first, col + it.second)
                     }.filter { (nextRow, nextCol) ->
                         isNotBoundary(nextRow, nextCol) &&
-                                heights[row][col] <= heights[nextRow][nextCol] && !visited.contains(
-                            Pair(
-                                nextRow,
-                                nextCol
-                            )
-                        )
+                                heights[row][col] <= heights[nextRow][nextCol] &&
+                                !visited.contains(Pair(nextRow, nextCol))
                     }
                     getReachableSet(seed - Pair(row, col) + toVisit, visited + toVisit)
                 }
             }
         }
 
-        val pacificSeed = reachableSeed.filter {
-            when {
-                it.second.first -> true
-                else -> false
-            }
-        }.toMap().keys
-
-        val atlanticSeed = reachableSeed.filter {
-            when {
-                it.second.second -> true
-                else -> false
-            }
-        }.toMap().keys
-
+        val pacificSeed = reachableSeed.filter { it.second.first }.toMap().keys
+        val atlanticSeed = reachableSeed.filter { it.second.second }.toMap().keys
         val pacificSet = getReachableSet(pacificSeed, pacificSeed)
         val atlanticSet = getReachableSet(atlanticSeed, atlanticSeed)
 
