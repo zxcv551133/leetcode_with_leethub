@@ -15,13 +15,11 @@ class Solution {
             0 -> listOf("")
             1 -> listOf("()")
             else -> {
-                val strList = (0 until n).flatMap { idx ->
+                (0 until n).flatMap { idx ->
                     val rightStrList = generateParenthesis(n - idx - 1)
                     val leftStrList = generateParenthesis(idx).map { "($it)" }
-                    val conStrList = leftStrList.flatMap { leftStr -> rightStrList.map { leftStr + it } }
-                    conStrList
+                    leftStrList.flatMap { leftStr -> rightStrList.map { leftStr + it } }
                 }
-                strList
             }
         }
     }
