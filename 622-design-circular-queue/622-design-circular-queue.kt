@@ -1,53 +1,30 @@
-class MyCircularQueue(k: Int) {
+class MyCircularQueue(private val k: Int) {
     var frontIdx = 0
     var lastIdx = 0
-    val queueArray = IntArray(k)
-    val maxSize = k
-    var currentSize = 0
-
-
+    val queueArray = IntArray(k) { -1 }
+    
     fun enQueue(value: Int): Boolean {
-        if (isFull()) {
-            return false
-        }
+        if (isFull()) return false
 
-        frontIdx = (frontIdx - 1 + maxSize) % maxSize
-        if (isEmpty()) {
-            lastIdx = frontIdx
-        }
         queueArray[frontIdx] = value
-        currentSize += 1
+        frontIdx = (frontIdx + 1) % k
+
         return true
     }
 
     fun deQueue(): Boolean {
-        if (isEmpty()) {
-            return false
-        }
-        lastIdx = (lastIdx + maxSize - 1) % maxSize
-        currentSize -= 1
+        if (isEmpty()) return false
+
+        queueArray[lastIdx] = -1
+        lastIdx = (lastIdx + 1) % k
         return true
     }
 
-    fun Front(): Int {
-        if (isEmpty()) {
-            return -1
-        }
-        return queueArray[lastIdx]
-    }
+    fun Front(): Int = queueArray[lastIdx]
 
-    fun Rear(): Int {
-        if (isEmpty()) {
-            return -1
-        }
-        return queueArray[frontIdx]
-    }
+    fun Rear(): Int = queueArray[(frontIdx - 1 + k) % k]
 
-    fun isEmpty(): Boolean {
-        return currentSize == 0
-    }
+    fun isEmpty(): Boolean = lastIdx == frontIdx && queueArray[lastIdx] == -1
 
-    fun isFull(): Boolean {
-        return currentSize == maxSize
-    }
+    fun isFull(): Boolean = lastIdx == frontIdx && queueArray[lastIdx] != -1
 }
