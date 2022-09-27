@@ -8,7 +8,6 @@ class Solution {
 
         val ret = zipNext.map { (current, next) -> pushDominoes(current, next) }
             .reduce { acc, s -> acc.append(s.drop(1)) }.drop(1).dropLast(1)
-        zipNext.map { (current, next) -> pushDominoes(current, next) }.forEach { println(it) }
         return ret.toString()
     }
 
