@@ -23,7 +23,7 @@ class Solution {
                     }
                 }
             }
-            Pair('L', 'R') -> StringBuilder().append("L" + ".".repeat(next.second - current.second - 1) + "R")
+            Pair('L', 'R') -> StringBuilder("L" + ".".repeat(next.second - current.second - 1) + "R")
             Pair('R', 'L') -> {
                 when (next.second) {
                     current.second + 2 -> {
@@ -33,12 +33,12 @@ class Solution {
                         StringBuilder("RL")
                     }
                     else -> {
-                        StringBuilder("R").append(
-                            pushDominoes(
+                        StringBuilder(
+                            "R" + pushDominoes(
                                 Pair(current.first, current.second + 1),
                                 Pair(next.first, next.second - 1)
-                            )
-                        ).append("L")
+                            ) + "L"
+                        )
                     }
                 }
             }
