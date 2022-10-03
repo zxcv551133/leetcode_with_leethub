@@ -4,7 +4,6 @@ class Solution {
         val absSorted = arr.sortedBy { kotlin.math.abs(it) }
         absSorted.forEach { num ->
             val cnt = countNum[num]!!
-            println("" + num + " " + cnt)
             if (cnt != 0) {
                 if ((countNum[num * 2] ?: 0) < cnt) {
                     return false
