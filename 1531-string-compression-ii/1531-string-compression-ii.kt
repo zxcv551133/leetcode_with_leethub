@@ -1,46 +1,43 @@
 class Solution {
-    fun getLengthOfOptimalCompression(s: String, k: Int): Int {
-        val numberLength = IntArray(s.length + 2) { num -> num.toString().length }
-        numberLength[0] = 0
-        numberLength[1] = 0
-
-        val UNDEFINED = -1
-        val mem = Array(s.length) { IntArray(k + 1) { UNDEFINED } }
-
-        fun getMinLength(pos: Int, canDelete: Int): Int {
-            if (pos == -1) {
-                return 0
-            }
-
-            if (mem[pos][canDelete] != UNDEFINED) {
-                return mem[pos][canDelete]
-            }
-
-            var result = Int.MAX_VALUE
-
-            if (canDelete > 0) {
-                result = minOf(result, getMinLength(pos - 1, canDelete - 1))
-            }
-
-            val curChar = s[pos]
-            var deleted = 0
-            var length = 0
-
-            for (i in pos downTo 0) {
-                if (s[i] == curChar) {
-                    ++length
-                } else {
-                    if (deleted == canDelete) break
-                    ++deleted
-                }
-
-                result = minOf(result, getMinLength(i - 1, canDelete - deleted) + 1 + numberLength[length])
-            }
-
-            mem[pos][canDelete] = result
-            return result
+    class Memoize<T, R>(val func: (T) -> R) {
+        private val cache = mutableMapOf<T, R>()
+        operator fun getValue(thisRef: Any?, property: kotlin.reflect.KProperty<*>) = { n: T ->
+            cache.getOrPut(n) { func(n) }
         }
+    }
 
-        return getMinLength(s.lastIndex, k)
+    fun getLengthOfOptimalCompression(s: String, k: Int): Int {
+        str = s
+        return shortestLength(Pair(s.length - 1, k))
+    }
+
+    lateinit var str: String
+
+    data class Quadruple<A, B, C, D>(val first: A, val second: B, val third: C, val forth: D)
+
+    val shortestLength: (Pair<Int, Int>) -> Int by Memoize { (strIdx, deleteNum) ->
+        if (strIdx < 0) {
+            0
+        } else {
+            val whenDelete = if (deleteNum > 0) shortestLength(Pair(strIdx - 1, deleteNum - 1)) else Int.MAX_VALUE
+
+            val initQuadruple = Quadruple(0, 0, Int.MAX_VALUE, false)
+            val ret = (strIdx downTo 0).fold(initQuadruple) { (deleted, sameLength, currentMin, isDone), idx ->
+                if (isDone || str[idx] != str[strIdx] && deleted == deleteNum) {
+                    Quadruple(deleted, sameLength, currentMin, true)
+                } else {
+                    val (newLength, newDeleted) = if (str[idx] == str[strIdx]) {
+                        Pair(sameLength + 1, deleted)
+                    } else {
+                        Pair(sameLength, deleted + 1)
+                    }
+                    val numSize = if (newLength <= 1) 0 else newLength.toString().length
+                    val newMin = minOf(currentMin, shortestLength(Pair(idx - 1, deleteNum - newDeleted)) + 1 + numSize)
+                    Quadruple(newDeleted, newLength, newMin, false)
+                }
+            }.third
+
+            minOf(ret, whenDelete)
+        }
     }
 }
