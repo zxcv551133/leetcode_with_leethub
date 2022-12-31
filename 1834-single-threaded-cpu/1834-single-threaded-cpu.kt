@@ -37,6 +37,4 @@ class Solution {
         } while (pq.isNotEmpty() || enqueueTasks.isNotEmpty())
         return ret.toIntArray()
     }
-
-
 }
