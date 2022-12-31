@@ -12,15 +12,18 @@ class Solution {
         val pq = PriorityQueue<Task>(
             Comparator<Task> { a, b -> a.processingTime.compareTo(b.processingTime) }
                 .thenComparator { a, b -> a.index.compareTo(b.index) })
-        val firstTask = enqueueTasks.poll()
-        pq.add(firstTask)
-        var currentTime = firstTask.enqueueTime
+
+        var currentTime = 0
         val ret = mutableListOf<Int>()
 
-        while (pq.isNotEmpty()) {
-            val currentTask = pq.poll()
-            currentTime += currentTask.processingTime
-            ret.add(currentTask.index)
+        do {
+            if (pq.isEmpty()) {
+                val nextTask = enqueueTasks.poll()
+                if (currentTime < nextTask.enqueueTime) {
+                    currentTime = nextTask.enqueueTime
+                }
+                pq.add(nextTask)
+            }
             while (enqueueTasks.isNotEmpty()) {
                 val candidate = enqueueTasks.peek()
                 if (candidate.enqueueTime <= currentTime) {
@@ -28,19 +31,10 @@ class Solution {
                     enqueueTasks.poll()
                 } else break
             }
-            if (pq.isEmpty() && enqueueTasks.isNotEmpty()) {
-                val nextTask = enqueueTasks.poll()
-                currentTime = nextTask.enqueueTime
-                pq.add(nextTask)
-                while (enqueueTasks.isNotEmpty()) {
-                    val candidate = enqueueTasks.peek()
-                    if (candidate.enqueueTime <= currentTime) {
-                        pq.add(candidate)
-                        enqueueTasks.poll()
-                    } else break
-                }
-            }
-        }
+            val currentTask = pq.poll()
+            currentTime += currentTask.processingTime
+            ret.add(currentTask.index)
+        } while (pq.isNotEmpty() || enqueueTasks.isNotEmpty())
         return ret.toIntArray()
     }
 
