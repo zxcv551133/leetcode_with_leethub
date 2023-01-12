@@ -12,7 +12,7 @@ class Solution {
         return mutableMap.mapIndexed {index, current -> current[labels[index] - 'a']}.toIntArray()
     }
 
-    fun subTreeDfs(currentIdx: Int, parentIdx: Int, graph: Array<MutableList<Int>>, labels: String, mutableMap: Array<Array<Int>>) {
+    private fun subTreeDfs(currentIdx: Int, parentIdx: Int, graph: Array<MutableList<Int>>, labels: String, mutableMap: Array<Array<Int>>) {
         mutableMap[currentIdx][labels[currentIdx] - 'a'] = 1
         if(graph[currentIdx].size == 1) {
             return
