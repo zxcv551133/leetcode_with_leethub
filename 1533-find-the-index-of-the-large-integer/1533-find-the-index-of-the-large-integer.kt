@@ -17,7 +17,6 @@ class Solution {
     fun getIndex(reader: ArrayReader): Int {
         val arrayLength = reader.length()
         fun optimistic(leftSt: Int, leftEd: Int, rightSt: Int, rightEd: Int): Int {
-            println("$leftSt, $leftEd, $rightSt, $rightEd")
             if (rightEd - leftSt == 1) {
                 return when (reader.compareSub(leftSt, leftEd, rightSt, rightEd)) {
                     1 -> leftSt
