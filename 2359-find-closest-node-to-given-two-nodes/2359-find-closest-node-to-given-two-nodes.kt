@@ -16,9 +16,6 @@ class Solution {
             .mapIndexed { idx, v -> Pair(idx, v)}
             .minBy { it.second }!!
 
-        println(distNo1
-                .zip(distNo2).map { (a, b) -> kotlin.math.max(a, b) }
-            .mapIndexed { idx, v -> Pair(idx, v)})
         return if(minValue.second >= Int.MAX_VALUE / 10 ) -1
         else minValue.first
     }
