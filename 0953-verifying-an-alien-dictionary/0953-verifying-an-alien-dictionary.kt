@@ -3,8 +3,6 @@ class Solution {
         val orderMap = order.mapIndexed { idx, c -> Pair(c, 'a' + idx)}.toMap()
         val converted = words.map { word -> word.map { c -> orderMap[c] }.joinToString("") }
         val sorted = converted.sorted()
-        println(converted)
-        println(sorted)
 
         return converted == sorted
     }
