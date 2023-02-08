@@ -6,7 +6,6 @@ class Solution {
             val right = query[1]
             val leftBar = presumMap.ceilingKey(left)
             val rightBar = presumMap.floorKey(right)
-            println("$left $right $leftBar $rightBar")
             if(leftBar == null || rightBar == null || leftBar > rightBar) {
                 0
             } else {
@@ -27,7 +26,6 @@ class Solution {
                 currentAcc += 1
             }
         }
-        println(treeMap.toList())
         return treeMap
     }
 }
