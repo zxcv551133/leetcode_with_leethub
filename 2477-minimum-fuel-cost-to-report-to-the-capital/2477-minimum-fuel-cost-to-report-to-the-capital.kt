@@ -23,7 +23,6 @@ class Solution {
                     a.second + b.second + (b.first + seats - 1) / seats
                 )
             }
-        println("$pairSum $currentPos $parentPos")
         return pairSum
     }
 }
