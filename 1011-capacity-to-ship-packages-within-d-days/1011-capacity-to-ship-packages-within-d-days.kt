@@ -4,13 +4,11 @@ class Solution {
         var lo = 0
         while(lo + 1 < hi) {
             val mi = (lo + hi) / 2
-            println("$lo $hi $mi")
             if(isAvailable(weights = weights, capacity = mi, days= days)) {
                 hi = mi
             } else {
                 lo = mi
             }
-            println("done $lo $hi $mi")
         }
         return hi
     }
