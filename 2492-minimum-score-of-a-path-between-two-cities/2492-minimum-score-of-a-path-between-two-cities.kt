@@ -19,7 +19,6 @@ class Solution {
         visited[currentPos] = true
         for (node in graph[currentPos]) {
             minDist = kotlin.math.min(node.second, minDist)
-            println(node)
             minScore(visited, graph, node.first)
         }
         return
