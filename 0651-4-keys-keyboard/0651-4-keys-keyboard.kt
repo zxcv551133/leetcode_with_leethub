@@ -11,9 +11,6 @@ class Solution {
             maxVal = kotlin.math.max(maxVal, dp[i - 3] * 2)
             maxVal = kotlin.math.max(maxVal, dp[i - 4] * 3)
             maxVal = kotlin.math.max(maxVal, dp[i - 5] * 4)
-            maxVal = kotlin.math.max(maxVal, dp[i - 6] * 5)
-            maxVal = kotlin.math.max(maxVal, dp[i - 7] * 6)
-            maxVal = kotlin.math.max(maxVal, dp[i - 8] * 7)
             dp[i] = maxVal
             println(dp[i])
         }
