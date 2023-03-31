@@ -12,11 +12,7 @@ class Solution {
             }
         }
 
-        val dp = Array(pizza.size + 1) {
-            Array(pizza[0].length + 1) {
-                IntArray(k + 1)
-            }
-        }
+        val dp = Array(pizza.size + 1) { Array(pizza[0].length + 1) { IntArray(k + 1)} }
 
         fun getCurrentSum(i: Int, j: Int): Int {
             return getRangeSum[pizza.size][pizza[0].length] -
@@ -25,9 +21,6 @@ class Solution {
                     getRangeSum[i][j]
         }
         
-        // println(getCurrentSum(0,0))
-        // println(getRangeSum[pizza.size][pizza[0].length])
-
         for (i in pizza.indices) {
             for (j in pizza[0].indices) {
                 dp[i][j][0] = if(getCurrentSum(i, j) == 0) 0 else 1
@@ -43,7 +36,6 @@ class Solution {
                         if(currentSum > cutSum) {
                             dp[i][j][cut] += dp[vert][j][cut - 1]
                         }
-                        // println("$i $j $vert $j $cut $currentSum $cutSum")
                         dp[i][j][cut] %= mod
                     }
                     for (hori in j + 1 until pizza[0].length) {
@@ -52,7 +44,6 @@ class Solution {
                         if(currentSum > cutSum) {
                             dp[i][j][cut] += dp[i][hori][cut - 1]
                         }
-                        // println("$i $j $i $hori $cut $currentSum $cutSum")
                         dp[i][j][cut] %= mod
                     }
                 }
