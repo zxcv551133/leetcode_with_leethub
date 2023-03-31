@@ -25,8 +25,8 @@ class Solution {
                     getRangeSum[i][j]
         }
         
-        println(getCurrentSum(0,0))
-        println(getRangeSum[pizza.size][pizza[0].length])
+        // println(getCurrentSum(0,0))
+        // println(getRangeSum[pizza.size][pizza[0].length])
 
         for (i in pizza.indices) {
             for (j in pizza[0].indices) {
@@ -43,7 +43,7 @@ class Solution {
                         if(currentSum > cutSum) {
                             dp[i][j][cut] += dp[vert][j][cut - 1]
                         }
-                        println("$i $j $vert $j $cut $currentSum $cutSum")
+                        // println("$i $j $vert $j $cut $currentSum $cutSum")
                         dp[i][j][cut] %= mod
                     }
                     for (hori in j + 1 until pizza[0].length) {
@@ -52,7 +52,7 @@ class Solution {
                         if(currentSum > cutSum) {
                             dp[i][j][cut] += dp[i][hori][cut - 1]
                         }
-                        println("$i $j $i $hori $cut $currentSum $cutSum")
+                        // println("$i $j $i $hori $cut $currentSum $cutSum")
                         dp[i][j][cut] %= mod
                     }
                 }
