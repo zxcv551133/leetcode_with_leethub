@@ -3,7 +3,6 @@ fun numSimilarGroups(strs: Array<String>): Int {
         var cnt = 0
         val visited = BooleanArray(strs.size)
         val similarGroups = makeSimilarGroups(strs)
-        println(similarGroups.toList())
         for (i in strs.indices) {
             if (visited[i]) continue
             cnt++
