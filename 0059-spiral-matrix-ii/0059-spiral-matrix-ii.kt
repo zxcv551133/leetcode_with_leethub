@@ -23,7 +23,6 @@ class Solution {
         }
         do {
             stPoint = getNextPoint(stPoint, currentDirection, currentDirection)
-            // println(stPoint)
             val currentVal = matrixCover[stPoint.first][stPoint.second]
             if(currentVal != 0) {
                 break
