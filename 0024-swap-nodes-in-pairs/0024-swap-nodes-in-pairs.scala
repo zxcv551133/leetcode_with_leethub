@@ -6,10 +6,11 @@
  * }
  */
 object Solution {
-    def swapPairs(head: ListNode): ListNode = {
+  def swapPairs(head: ListNode): ListNode = {
     if(head == null) null
     else swapPair(head)
   }
+    
   def swapPair(head: ListNode): ListNode = {
     head.next match {
       case null => head
