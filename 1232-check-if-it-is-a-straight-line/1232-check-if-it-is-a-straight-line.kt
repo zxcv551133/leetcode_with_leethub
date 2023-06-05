@@ -7,8 +7,6 @@ class Solution {
             val xDiff = x1 - x2
             val yDiff = y1 - y2
             val gcd = getGcd(kotlin.math.abs(x1 - x2), kotlin.math.abs(y1 - y2))
-            val t = Pair(xDiff / gcd, yDiff / gcd)
-            println("$x1 $x2 $y1 $y2 $t")
             listOf(Pair(xDiff / gcd, yDiff / gcd), Pair(- xDiff / gcd, - yDiff / gcd))
         }
         return pairZipped.flatten().toSet().size <= 2
