@@ -9,7 +9,7 @@ class Solution {
             val gcd = getGcd(kotlin.math.abs(x1 - x2), kotlin.math.abs(y1 - y2))
             listOf(Pair(xDiff / gcd, yDiff / gcd), Pair(- xDiff / gcd, - yDiff / gcd))
         }
-        return pairZipped.flatten().toSet().size <= 2
+        return pairZipped.flatten().toSet().size == 2
     }
 
     fun getGcd(a: Int, b: Int): Int {
