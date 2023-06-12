@@ -14,8 +14,6 @@ class Solution {
         val right = getLowerBound(target + 1, - 1, nums.size)
 
         val size = right - left
-        
-        println("$right $left")
 
         return size > nums.size / 2
     }
