@@ -7,8 +7,8 @@ class Solution {
         
         val firstLastSum = weights.first() + weights.last()
         
-        val minVal = minList.sum()
-        val maxVal = maxList.sum()
+        val minVal = minList.sum() + firstLastSum
+        val maxVal = maxList.sum() + firstLastSum
         
         return maxVal - minVal
     }
