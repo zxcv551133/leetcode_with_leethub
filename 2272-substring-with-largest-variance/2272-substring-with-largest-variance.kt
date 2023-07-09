@@ -13,7 +13,6 @@ class Solution {
                 var minorCount = 0
                 var restMinorCount = counts[minor] ?: continue
 
-
                 for (character in s) {
 
                     if (character == major) {
