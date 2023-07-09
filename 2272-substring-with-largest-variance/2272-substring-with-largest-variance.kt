@@ -1,8 +1,6 @@
 class Solution {
     fun largestVariance(s: String): Int {
         val counts = s.groupBy { it }.mapValues { it.value.size }
-        if (counts.size == 1) return 0
-        if (counts.all { it.value == 1 }) return 0
 
         var maxVariance = 0
 
@@ -37,8 +35,6 @@ class Solution {
                 }
             }
         }
-        // println(dp.map { it.toList() })
-
 
         return maxVariance
     }
