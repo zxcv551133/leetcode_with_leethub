@@ -20,8 +20,6 @@ class Solution {
         pq.add(Pair(start, 0))
         while (pq.isNotEmpty()) {
             val (current, dist) = pq.poll()
-            if (distances[current]?.let { it < dist } == true)
-                continue
 
             for (dir in directions) {
                 var next = current
